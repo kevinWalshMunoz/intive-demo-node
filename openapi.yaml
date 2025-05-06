@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Calculator API
+  version: 1.0.0
+  description: API for performing calculator operations
+
+servers:
+  - url: ${API_BASE_URL}
+    description: Local development server
+
+paths:
+  /api/v1/calculator:
+    post:
+      summary: Perform a calculation
+      description: |
+        Performs a calculation based on the provided numbers and operation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - number1
+                - number2
+                - operation
+              properties:
+                number1:
+                  type: number
+                  example: 5
+                number2:
+                  type: number
+                  example: 3
+                operation:
+                  type: string
+                  example: "+"
+      responses:
+        "201":
+          description: Calculation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  operation:
+                    type: string
+                    example: "+"
+                  number1:
+                    type: number
+                    example: 5
+                  number2:
+                    type: number
+                    example: 3
+                  result:
+                    type: number
+                    example: 8
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2023-10-01T12:00:00Z"
+                  responseTime:
+                    type: number
+                    example: 100
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid operator"
+      tags:
+        - Calculator
